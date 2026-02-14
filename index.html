@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Inventory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-shopping-basket"></i> Grocery Inventory</h1>
+                <div class="header-actions">
+                    <div class="cart-container" style="position: relative;">
+                        <button class="btn btn-icon cart-btn" onclick="toggleCart()" title="Shopping Cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-badge" id="cart-count">0</span>
+                        </button>
+                        <!-- Cart Dropdown -->
+                        <div class="cart-dropdown" id="cart-dropdown">
+                            <div class="cart-header">
+                                <h3><i class="fas fa-shopping-cart"></i> Shopping Cart</h3>
+                                <button class="close-btn" onclick="toggleCart()">&times;</button>
+                            </div>
+                            <div class="cart-items" id="cart-items">
+                                <div class="cart-empty">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <p>Your cart is empty</p>
+                                </div>
+                            </div>
+                            <div class="cart-footer">
+                                <button class="btn btn-sm" onclick="clearCart()">
+                                    <i class="fas fa-trash-alt"></i> Clear
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="copyCartToClipboard()">
+                                    <i class="fas fa-copy"></i> Copy List
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-icon" onclick="openConfigModal()" title="Configuration">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="btn btn-primary btn-icon" onclick="openAddModal()" title="Add Item">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <h3 id="stat-total">0</h3>
+                <p>Total Items</p>
+            </div>
+            <div class="stat-card finished">
+                <h3 id="stat-finished">0</h3>
+                <p>Finished</p>
+            </div>
+            <div class="stat-card half">
+                <h3 id="stat-half">0</h3>
+                <p>Running Low</p>
+            </div>
+            <div class="stat-card full">
+                <h3 id="stat-full">0</h3>
+                <p>Full Stock</p>
+            </div>
+        </div>
+
+        <!-- Priority Sections -->
+        <div class="priority-sections">
+            <div class="priority-card">
+                <div class="priority-header immediate">
+                    <h2><i class="fas fa-shopping-cart"></i> Immediate Buy</h2>
+                    <span class="badge" id="immediate-count">0</span>
+                </div>
+                <div class="priority-list" id="immediate-list">
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>No items need immediate purchase!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="priority-card">
+                <div class="priority-header later">
+                    <h2><i class="fas fa-calendar-week"></i> Some Week Later</h2>
+                    <span class="badge" id="later-count">0</span>
+                </div>
+                <div class="priority-list" id="later-list">
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>No items running low yet!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filters-header">
+                <h3><i class="fas fa-filter"></i> Filter Items</h3>
+                <button class="btn btn-sm" onclick="clearFilters()">
+                    <i class="fas fa-times"></i> Clear All
+                </button>
+            </div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Search</label>
+                    <input type="text" id="search-input" placeholder="Search by name or category..." oninput="filterItems()">
+                </div>
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select id="category-filter" onchange="filterItems()">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Stock Status</label>
+                    <select id="status-filter" onchange="filterItems()">
+                        <option value="">All Status</option>
+                    </select>
+                </div>
+            </div>
+            <div class="active-filters" id="active-filters"></div>
+        </div>
+
+        <!-- Inventory Section -->
+        <div class="inventory-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list"></i> All Inventory Items</h2>
+                <button class="btn" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+
+            <!-- Desktop Table View -->
+            <div class="table-container">
+                <table id="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Stock Status</th>
+                            <th>Last Updated</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-tbody">
+                        <tr>
+                            <td colspan="7" class="no-results">
+                                <i class="fas fa-box-open"></i>
+                                <p>No items found. Add your first item!</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div class="cards-container" id="cards-container">
+                <div class="empty-state">
+                    <i class="fas fa-box-open"></i>
+                    <p>No items found. Add your first item!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="item-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title"><i class="fas fa-plus"></i> Add New Item</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="item-form">
+                    <input type="hidden" id="item-row-index">
+
+                    <div class="form-group">
+                        <label>Item Name *</label>
+                        <input type="text" id="item-name" required placeholder="e.g., Basmati Rice">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="item-category">
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock Status *</label>
+                            <select id="item-status" required>
+                                <option value="">Select Status</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" id="item-quantity" placeholder="0" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit</label>
+                            <select id="item-unit">
+                                <option value="">Select Unit</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="item-notes" placeholder="Any additional notes..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveItem()">
+                    <i class="fas fa-save"></i> Save Item
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Confirm Delete</h2>
+                <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="delete-item-name"></strong>?</p>
+                <p style="color: var(--text-light); font-size: 12px; margin-top: 10px;">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Config Modal -->
+    <div class="modal-overlay" id="config-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-cog"></i> Configuration</h2>
+                <button class="modal-close" onclick="closeConfigModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="config-section">
+                    <h3>Google Apps Script Web App URL</h3>
+                    <p>Enter the URL of your deployed Google Apps Script web app</p>
+                    <input type="url" class="config-input" id="script-url" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec">
+                </div>
+
+                <div class="config-section">
+                    <h3>Column Configuration (Optional)</h3>
+                    <p>Your sheet should have these columns: Item Name, Category, Stock Status, Quantity, Unit, Last Updated, Notes</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeConfigModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveConfig()">
+                    <i class="fas fa-save"></i> Save Configuration
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
