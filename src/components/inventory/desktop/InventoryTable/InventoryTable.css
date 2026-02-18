@@ -1,0 +1,162 @@
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+thead {
+  background: var(--bg-sidebar);
+}
+
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+th:first-child {
+  padding-left: 20px;
+}
+
+th:last-child {
+  padding-right: 20px;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+td:first-child {
+  padding-left: 20px;
+}
+
+td:last-child {
+  padding-right: 20px;
+}
+
+tr:hover td {
+  background: var(--bg-sidebar);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status badges in table */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-full {
+  background: var(--success-light);
+  color: #166534;
+}
+
+.status-full::before {
+  background: var(--success);
+}
+
+.status-half {
+  background: var(--warning-light);
+  color: #92400e;
+}
+
+.status-half::before {
+  background: var(--warning);
+}
+
+.status-empty,
+.status-finished {
+  background: var(--danger-light);
+  color: #991b1b;
+}
+
+.status-empty::before,
+.status-finished::before {
+  background: var(--danger);
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.no-results i {
+  font-size: 40px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+  display: block;
+}
+
+.no-results p {
+  font-size: 14px;
+}
+
+/* Action buttons in table */
+.actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.actions button {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .table-container {
+    display: block;
+  }
+}
+
+@media (max-width: 1200px) {
+  th,
+  td {
+    padding: 10px 12px;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 16px;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 16px;
+  }
+}

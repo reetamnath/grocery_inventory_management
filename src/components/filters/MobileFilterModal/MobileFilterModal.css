@@ -1,0 +1,47 @@
+.mobile-filter-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-filter-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mobile-filter-label i {
+  color: var(--primary);
+}
+
+.mobile-filter-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.mobile-filter-count {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.mobile-filter-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.mobile-filter-actions .btn {
+  flex: 1;
+  justify-content: center;
+}

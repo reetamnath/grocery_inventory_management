@@ -1,0 +1,107 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+
+.stat-card {
+  background: var(--bg-sidebar);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  transition: transform 0.15s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-1px);
+}
+
+.stat-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1;
+}
+
+.stat-card p {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Type-specific styles - subtle left border accent */
+.stat-card.total {
+  background: var(--bg-sidebar);
+  border-left: 3px solid var(--primary);
+}
+
+.stat-card.total h3 {
+  color: var(--primary);
+}
+
+.stat-card.finished {
+  background: var(--danger-light);
+  border-left: 3px solid var(--danger);
+}
+
+.stat-card.finished h3 {
+  color: var(--danger);
+}
+
+.stat-card.half {
+  background: var(--warning-light);
+  border-left: 3px solid var(--warning);
+}
+
+.stat-card.half h3 {
+  color: #d97706;
+}
+
+.stat-card.full {
+  background: var(--success-light);
+  border-left: 3px solid var(--success);
+}
+
+.stat-card.full h3 {
+  color: var(--success);
+}
+
+/* Single column for when sidebar is stacked */
+@media (max-width: 1200px) and (min-width: 993px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Two columns when sidebar is horizontal */
+@media (max-width: 992px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-card h3 {
+    font-size: 20px;
+  }
+}

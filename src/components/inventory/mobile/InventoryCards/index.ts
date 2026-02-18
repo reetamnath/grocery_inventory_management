@@ -1,0 +1,1 @@
+export { InventoryCards } from "./InventoryCards";

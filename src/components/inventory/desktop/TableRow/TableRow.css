@@ -1,0 +1,66 @@
+.actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.category-tag {
+  display: inline-flex;
+  background: var(--bg-sidebar);
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Status badges - pill style with dot */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-badge.full {
+  background: var(--success-light);
+  color: #166534;
+}
+
+.status-badge.full::before {
+  background: var(--success);
+}
+
+.status-badge.half {
+  background: var(--warning-light);
+  color: #92400e;
+}
+
+.status-badge.half::before {
+  background: var(--warning);
+}
+
+.status-badge.finished {
+  background: var(--danger-light);
+  color: #991b1b;
+}
+
+.status-badge.finished::before {
+  background: var(--danger);
+}
+
+/* Actions sizing */
+.actions .btn {
+  min-width: 32px;
+  padding: 6px;
+}

@@ -57,14 +57,57 @@ Add a few sample rows to test the app:
 
 ### Step 4: Deploy Frontend to GitHub Pages
 
-1. Create a new repository on GitHub
-2. Upload the `index.html` file to the repository
-3. Go to **Settings** → **Pages**
-4. Under "Source", select **Deploy from a branch**
-5. Select **main** branch and **/(root)** folder
-6. Click **Save**
-7. Wait 1-2 minutes for deployment
-8. Your app will be live at: `https://YOUR_USERNAME.github.io/REPO_NAME`
+This project uses the same repository for deployment by committing the `dist/` folder.
+
+1. **Build the project**:
+   ```bash
+   npm install
+   npm run build
+   ```
+   This creates a `dist/` folder with the optimized production files.
+
+2. **Commit the dist folder to your repository**:
+   ```bash
+   git add dist/
+   git commit -m "Add production build"
+   git push origin main
+   ```
+
+3. **Configure GitHub Pages**:
+   - Go to your repository **Settings** → **Pages**
+   - Under "Source", select **Deploy from a branch**
+   - Select **main** branch and **/docs** folder (see step 4)
+   - Click **Save**
+
+4. **Point GitHub Pages to the dist folder**:
+
+   Since GitHub Pages can only serve from specific folders, you have two options:
+
+   **Option A: Rename dist to docs** (simpler, no extra tools)
+   ```bash
+   # Remove dist from git tracking but keep files locally
+   git rm -r --cached dist/
+
+   # Rename the folder
+   git mv dist docs
+
+   # Commit and push
+   git commit -m "Rename dist to docs for GitHub Pages"
+   git push origin main
+   ```
+   Then in GitHub Pages settings, select **main** branch and **/docs** folder.
+
+   **Option B: Use gh-pages branch** (cleaner history)
+   - Install: `npm install --save-dev gh-pages`
+   - Add to `package.json` scripts: `"deploy": "npm run build && gh-pages -d dist"`
+   - Run: `npm run deploy`
+   - In GitHub Pages settings, select **gh-pages** branch and **/root** folder.
+
+5. **Wait 1-2 minutes** for deployment to complete.
+
+6. **Your app will be live at**: `https://YOUR_USERNAME.github.io/REPO_NAME`
+
+> **Tip**: Add `dist/` or `docs/` to your `.gitignore` if you prefer not to commit builds. Use Option B (gh-pages branch) in that case.
 
 ### Step 5: Configure the App
 

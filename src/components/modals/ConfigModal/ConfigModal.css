@@ -1,0 +1,45 @@
+.config-section {
+  background: var(--bg);
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.config-section:last-child {
+  margin-bottom: 0;
+}
+
+.config-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.config-section p {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.config-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.config-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.config-error {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 8px;
+  margin-bottom: 0;
+}

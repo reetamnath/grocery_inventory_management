@@ -1,0 +1,122 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--bg-card);
+  color: var(--text);
+  transition: all 0.15s ease;
+  text-decoration: none;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--bg-sidebar);
+  color: var(--text);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary button */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-light);
+  color: white;
+}
+
+/* Secondary/Outline button */
+.btn-secondary {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-sidebar);
+  border-color: var(--secondary);
+}
+
+/* Danger button */
+.btn-danger {
+  background: var(--bg-card);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--danger);
+  color: white;
+}
+
+/* Sizes */
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.btn-xs {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.btn-icon {
+  padding: 6px;
+  min-width: 32px;
+}
+
+.btn-sm.btn-icon {
+  min-width: 28px;
+  padding: 5px;
+}
+
+/* Cart buttons - subtle style */
+.btn-cart {
+  background: var(--bg-sidebar);
+  border-color: var(--border);
+  color: var(--success);
+}
+
+.btn-cart:hover:not(:disabled) {
+  background: var(--success-light);
+  border-color: var(--success);
+}
+
+.btn-cart-active {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.btn-cart-active:hover:not(:disabled) {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+/* Ghost button */
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--bg-sidebar);
+}
